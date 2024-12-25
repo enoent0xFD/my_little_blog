@@ -1,0 +1,94 @@
+:root {
+    --bg-color: #1a1a1a;
+    --text-color: #00ff00;
+    --header-color: #00cc00;
+    --link-color: #33ff33;
+    --border-color: #004400;
+    --hover-color: #007700;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Courier New', monospace;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+header {
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0 0 20px 0;
+    font-size: 1.8em;
+}
+
+header p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+.content {
+    border: 1px solid var(--border-color);
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    color: var(--header-color);
+    font-weight: normal;
+}
+
+h1::before, h2::before, h3::before {
+    content: "# ";
+    color: var(--text-color);
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.post-preview {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.post-preview:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.post-date {
+    color: var(--text-color);
+    opacity: 0.7;
+    font-size: 0.9em;
+}
+
+.post-preview h2 {
+    margin: 8px 0;
+    font-size: 1.4em;
+}
+
+.post-preview p {
+    margin: 10px 0 0 0;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.status-bar {
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 0.9em;
+}
