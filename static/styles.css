@@ -91,4 +91,84 @@ a:hover {
     padding: 10px;
     margin-top: 20px;
     font-size: 0.9em;
+}/* Add these styles to your styles.css */
+
+pre {
+    background-color: #0a0a0a;  /* Slightly darker than main background */
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    overflow-x: auto;
+    margin: 20px 0;
 }
+
+code {
+    font-family: 'Courier New', monospace;
+    color: var(--text-color);
+}
+
+/* For inline code */
+p code {
+    background-color: #0a0a0a;
+    padding: 2px 5px;
+    border: 1px solid var(--border-color);
+}
+
+/* For block code */
+pre code {
+    display: block;
+    line-height: 1.5;
+}
+
+/* Optional: Add a comment-style line at the top of code blocks */
+pre::before {
+    content: "/* code */";
+    display: block;
+    color: var(--text-color);
+    opacity: 0.5;
+    margin-bottom: 10px;
+}
+
+.site-title {
+    text-align: center;
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.intro {
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.github-link {
+    margin-top: 20px;
+}
+
+.github-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+    border: 1px solid var(--border-color);
+}
+
+.github-link a:hover {
+    background-color: var(--hover-color);
+    text-decoration: none;
+}
+
+.posts-heading {
+    font-size: 1.6em;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Update header style */
+header {
+    border: 1px solid var(--border-color);
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+/* Rest of your existing styles remain the same */
