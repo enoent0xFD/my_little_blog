@@ -33,7 +33,7 @@ static void format_memory(char *buffer, size_t size) {
     // Convert to MB
     unsigned long resident_mb = info.resident_size / (1024 * 1024);
     unsigned long virtual_mb = info.virtual_size / (1024 * 1024);
-    snprintf(buffer, size, "%luMB", resident_mb);
+    snprintf(buffer, size, "%luMB", resident_mb, virtual_mb);
   } else {
     strncpy(buffer, "N/A", size);
   }
@@ -55,7 +55,7 @@ static void format_memory(char *buffer, size_t size) {
     // Convert KB to MB
     vmsize /= 1024;
     vmrss /= 1024;
-    snprintf(buffer, size, "Res: %luMB, Virt: %luMB", vmrss, vmsize);
+    snprintf(buffer, size, "%luMB", vmrss);
   } else {
     strncpy(buffer, "N/A", size);
   }
