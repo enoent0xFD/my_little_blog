@@ -1,0 +1,17 @@
+# flyctl launch added from .gitignore
+# Executable
+**/blog_server
+
+# Object files
+**/*.o
+
+# Debug files
+**/*.dSYM
+
+# IDE specific
+**/.vscode
+**/.idea
+
+# OS specific
+**/.DS_Store
+fly.toml

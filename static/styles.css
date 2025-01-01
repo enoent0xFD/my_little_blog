@@ -171,4 +171,25 @@ header {
     margin-bottom: 20px;
 }
 
-/* Rest of your existing styles remain the same */
+//* Add to your styles.css */
+.error-content {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.error-content h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.error-content a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 1px solid var(--border-color);
+}
+
+.error-content a:hover {
+    background: var(--hover-color);
+    text-decoration: none;
+}* Rest of your existing styles remain the same */

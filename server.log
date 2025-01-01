@@ -1,0 +1,61 @@
+[2025-01-01 00:47:42] [INFO] Server starting on 127.0.0.1:8080
+[2025-01-01 00:47:50] [INFO] Received request: GET / HTTP/1.1
+[2025-01-01 00:47:50] [INFO] Received request: GET /styles.css HTTP/1.1
+[2025-01-01 00:47:50] [INFO] 404 Not Found: /styles.css
+[2025-01-01 00:47:50] [INFO] Received request: GET /api/stats HTTP/1.1
+[2025-01-01 00:48:00] [INFO] Received request: GET /styles.css HTTP/1.1
+[2025-01-01 00:48:00] [INFO] 404 Not Found: /styles.css
+[2025-01-01 00:48:04] [INFO] Received request: GET / HTTP/1.1
+[2025-01-01 00:48:04] [INFO] Received request: GET /styles.css HTTP/1.1
+[2025-01-01 00:48:04] [INFO] 404 Not Found: /styles.css
+[2025-01-01 00:48:04] [INFO] Received request: GET /api/stats HTTP/1.1
+[2025-01-01 00:51:39] [INFO] Server starting on 127.0.0.1:8080
+[2025-01-01 00:51:51] [INFO] Received request: GET / HTTP/1.1
+[2025-01-01 00:51:56] [WARN] Failed to read request or timeout
+[2025-01-01 00:52:00] [INFO] Received request: GET / HTTP/1.1
+[2025-01-01 00:52:01] [INFO] Received request: GET / HTTP/1.1
+[2025-01-01 00:52:54] [INFO] Server starting on 127.0.0.1:8080
+[2025-01-01 00:53:04] [INFO] Received request: GET / HTTP/1.1
+[2025-01-01 00:53:04] [INFO] Received request: GET /styles.css HTTP/1.1
+[2025-01-01 00:53:04] [INFO] 404 Not Found: /styles.css
+[2025-01-01 00:53:04] [INFO] Received request: GET /api/stats HTTP/1.1
+[2025-01-01 00:53:07] [INFO] Received request: GET /styles.css HTTP/1.1
+[2025-01-01 00:53:07] [INFO] 404 Not Found: /styles.css
+[2025-01-01 00:53:13] [INFO] Received request: GET /post/building-blog-in-c HTTP/1.1
+[2025-01-01 00:53:13] [INFO] Received request: GET /styles.css HTTP/1.1
+[2025-01-01 00:53:13] [INFO] 404 Not Found: /styles.css
+[2025-01-01 00:53:13] [INFO] Received request: GET /api/stats HTTP/1.1
+[2025-01-01 00:53:26] [INFO] Received request: GET / HTTP/1.1
+[2025-01-01 00:53:26] [INFO] Received request: GET /styles.css HTTP/1.1
+[2025-01-01 00:53:26] [INFO] 404 Not Found: /styles.css
+[2025-01-01 00:53:26] [INFO] Received request: GET /api/stats HTTP/1.1
+[2025-01-01 00:55:07] [INFO] Server starting on 127.0.0.1:8080
+[2025-01-01 00:55:13] [INFO] Server starting on 127.0.0.1:8080
+[2025-01-01 00:55:17] [INFO] Received request: GET / HTTP/1.1
+[2025-01-01 00:55:17] [INFO] Received request: GET /static/styles.css HTTP/1.1
+[2025-01-01 00:55:17] [INFO] 404 Not Found: /static/styles.css
+[2025-01-01 00:55:17] [INFO] Received request: GET /api/stats HTTP/1.1
+[2025-01-01 00:55:20] [INFO] Received request: GET / HTTP/1.1
+[2025-01-01 00:55:20] [INFO] Received request: GET /static/styles.css HTTP/1.1
+[2025-01-01 00:55:20] [INFO] 404 Not Found: /static/styles.css
+[2025-01-01 00:55:20] [INFO] Received request: GET /api/stats HTTP/1.1
+[2025-01-01 00:57:37] [INFO] Server starting on 127.0.0.1:8080
+[2025-01-01 00:58:00] [INFO] Server starting on 127.0.0.1:8080
+[2025-01-01 00:58:35] [INFO] Server starting on 127.0.0.1:8080
+[2025-01-01 00:59:16] [INFO] Server starting on 127.0.0.1:8080
+[2025-01-01 00:59:20] [INFO] Server starting on 127.0.0.1:8080
+[2025-01-01 01:12:28] [INFO] Server starting on 127.0.0.1:8080
+[2025-01-01 01:12:35] [INFO] Received request: GET / HTTP/1.1
+[2025-01-01 01:12:35] [INFO] Received request: GET /styles.css HTTP/1.1
+[2025-01-01 01:12:35] [INFO] Received request: GET /api/stats HTTP/1.1
+[2025-01-01 01:12:38] [INFO] Received request: GET /post/building-blog-in-c HTTP/1.1
+[2025-01-01 01:12:38] [INFO] Received request: GET /styles.css HTTP/1.1
+[2025-01-01 01:12:38] [INFO] Received request: GET /api/stats HTTP/1.1
+[2025-01-01 01:26:30] [INFO] Server starting on 127.0.0.1:8080
+[2025-01-01 01:26:43] [INFO] Server starting on 127.0.0.1:8080
+[2025-01-01 01:26:54] [INFO] Received request: GET /post/building-blog-in-c HTTP/1.1
+[2025-01-01 01:26:54] [INFO] Received request: GET /styles.css HTTP/1.1
+[2025-01-01 01:26:54] [INFO] Received request: GET /api/stats HTTP/1.1
+[2025-01-01 01:27:00] [INFO] Received request: GET / HTTP/1.1
+[2025-01-01 01:27:00] [INFO] Received request: GET /styles.css HTTP/1.1
+[2025-01-01 01:27:00] [INFO] Received request: GET /api/stats HTTP/1.1

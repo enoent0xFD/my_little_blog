@@ -1,3 +1,5 @@
+#include <stdbool.h>  // Add this for bool type
+
 #ifndef HTTP_H
 #define HTTP_H
 
@@ -7,7 +9,7 @@ struct http_request {
     char version[16];
 };
 
-void parse_http_request(char* request_line, struct http_request* req);
+bool parse_http_request(char* request_line, struct http_request* req);
 const char* get_content_type(const char* path);
 // In include/http.h
 // Add these function declarations:

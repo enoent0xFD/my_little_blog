@@ -1,14 +1,12 @@
 {
     "server": {
         "port": 8080,
-        "host": "127.0.0.1",
         "static_dir": "./static",
         "blog_dir": "./content"
     },
     "blog": {
-        "title": "C Blog",
-        "description": "A minimalist blog engine written in pure C",
-        "author": "enoent",
-        "posts_per_page": 10
+        "title": "Abstraction Layer",
+        "description": "Cloud engineer by day, systems tinkerer by night.",
+        "author": "Phil M"
     }
 }
