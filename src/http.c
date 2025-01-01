@@ -56,6 +56,10 @@ const char *get_content_type(const char *path) {
       return "application/javascript";
     } else if (strcmp(ext, ".json") == 0) {
       return "application/json";
+    } else if (strcmp(ext, ".png") == 0) {
+      return "image/png";
+    } else if (strcmp(ext, ".ico") == 0) {
+      return "image/x-icon";
     }
   }
   return "text/plain";
