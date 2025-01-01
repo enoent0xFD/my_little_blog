@@ -10,11 +10,11 @@ app = "abstraction-layer"
   [[services.ports]]
     handlers = ["http"]
     port = "80"
+    force_https = true
 
   [[services.ports]]
     handlers = ["tls", "http"]
     port = "443"
-    force_https = true
 
   [[services.http_checks]]
     interval = "10s"
