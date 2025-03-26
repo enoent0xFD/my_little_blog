@@ -1,26 +1,32 @@
 :root {
     --bg-color: #1a1a1a;
-    --text-color: #00ff00;
-    --header-color: #00cc00;
-    --link-color: #33ff33;
-    --border-color: #004400;
-    --hover-color: #007700;
+    --text-color: #f0f0f0;  /* Slightly brighter for better contrast */
+    --header-color: #cccccc;
+    --link-color: #cccccc;
+    --border-color: #333333;
+    --hover-color: #555555;
 }
 
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-family: 'Courier New', monospace;
-    line-height: 1.6;
+    /* Using IBM Plex Mono as primary, falling back to other monospace fonts */
+    font-family: 'IBM Plex Mono', 'Fira Code', 'Source Code Pro', 'Courier New', monospace;
+    font-weight: 450;  /* Slightly bolder than normal */
+    line-height: 1.8;  /* Increased for better readability */
     margin: 0;
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
+    font-size: 16px;  /* Increased from 15px */
+    letter-spacing: 0.3px;  /* Better letter spacing for readability */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 header {
     border: 1px solid var(--border-color);
-    padding: 20px;
+    padding: 25px;
     margin-bottom: 20px;
 }
 
@@ -46,7 +52,8 @@ header p {
 
 h1, h2, h3 {
     color: var(--header-color);
-    font-weight: normal;
+    font-weight: 700;  /* Bolder headers */
+    letter-spacing: -0.5px;  /* Tighter heading spacing */
 }
 
 h1::before, h2::before, h3::before {
@@ -88,7 +95,10 @@ a:hover {
 .post-preview p {
     margin: 10px 0 0 0;
     color: var(--text-color);
-    opacity: 0.9;
+    letter-spacing: 0.2px;  /* Slightly increased letter spacing for better readability */
+    line-height: 1.7;
+    opacity: 0.95;  /* Increased from 0.9 */
+    font-weight: 450;  /* Match body text weight */
 }
 
 .status-bar {
@@ -96,25 +106,34 @@ a:hover {
     padding: 10px;
     margin-top: 20px;
     font-size: 0.9em;
-}/* Add these styles to your styles.css */
+}
 
 pre {
-    background-color: #0a0a0a;  /* Slightly darker than main background */
+    background-color: #141414;
+    padding: 1.2em;
     border: 1px solid var(--border-color);
-    padding: 15px;
     overflow-x: auto;
     margin: 20px 0;
+    border-radius: 4px;
+}
+
+code, pre {
+    font-family: 'Fira Code', 'IBM Plex Mono', 'Source Code Pro', 'Courier New', monospace;
+    font-size: 0.95em;
+    line-height: 1.5;
+    font-weight: 450;  /* Match body text weight */
 }
 
 code {
-    font-family: 'Courier New', monospace;
     color: var(--text-color);
 }
 
 /* For inline code */
 p code {
-    background-color: #0a0a0a;
-    padding: 2px 5px;
+    font-size: 0.9em;
+    padding: 3px 6px;
+    border-radius: 2px;
+    background-color: #141414;  /* Slightly darker than main background */
     border: 1px solid var(--border-color);
 }
 
@@ -169,13 +188,6 @@ pre::before {
     border-bottom: 1px solid var(--border-color);
 }
 
-/* Update header style */
-header {
-    border: 1px solid var(--border-color);
-    padding: 25px;
-    margin-bottom: 20px;
-}
-
 //* Add to your styles.css */
 .error-content {
     text-align: center;
@@ -197,4 +209,13 @@ header {
 .error-content a:hover {
     background: var(--hover-color);
     text-decoration: none;
-}* Rest of your existing styles remain the same */
+}
+
+/* Add this at the end of your CSS file */
+@media screen and (max-width: 600px) {
+    body {
+        font-size: 15px;  /* Increased from 14px */
+        line-height: 1.7;
+        font-weight: 450;
+    }
+}
