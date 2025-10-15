@@ -5,8 +5,8 @@
         "blog_dir": "./content"
     },
     "blog": {
-        "title": "Abstraction Layer",
-        "description": "Cloud engineer by day, systems tinkerer by night.",
-        "author": "Phil M"
+        "title": "Filip Mihalic",
+        "description": "Systems programming, resilient software, and lessons from working down the stack.",
+        "author": "Filip Mihalic"
     }
 }

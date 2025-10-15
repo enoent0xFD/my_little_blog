@@ -18,6 +18,116 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+static const char *ABOUT_TEMPLATE =
+    "<!DOCTYPE html>\n"
+    "<html lang=\"en\">\n"
+    "<head>\n"
+    "  <meta charset=\"UTF-8\">\n"
+    "  <meta name=\"viewport\" content=\"width=device-width, "
+    "initial-scale=1.0\">\n"
+    "  <title>About · Filip Mihalic</title>\n"
+    "  <meta name=\"description\" content=\"About Filip Mihalic, a "
+    "systems-focused software developer based in Belgrade, Serbia.\">\n"
+    "  <link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">\n"
+    "  <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" "
+    "href=\"/favicon-32x32.png\">\n"
+    "  <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" "
+    "href=\"/favicon-16x16.png\">\n"
+    "  <link rel=\"apple-touch-icon\" sizes=\"180x180\" "
+    "href=\"/apple-touch-icon.png\">\n"
+    "  <script "
+    "src=\"https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4\"></script>\n"
+    "  <style>\n"
+    "    :root { color-scheme: dark; }\n"
+    "    .markdown :is(p, ul, ol, blockquote, pre) { margin-top: 1.5rem; "
+    "margin-bottom: 1.5rem; }\n"
+    "    .markdown a { color: #60a5fa; text-decoration: none; }\n"
+    "    .markdown a:hover { text-decoration: underline; }\n"
+    "  </style>\n"
+    "</head>\n"
+    "<body class=\"bg-slate-950 text-slate-200 font-sans\">\n"
+    "  <div class=\"min-h-screen\">\n"
+    "    <header class=\"border-b border-slate-800/80 bg-slate-950/80 "
+    "backdrop-blur\">\n"
+    "      <div class=\"max-w-3xl mx-auto flex flex-col gap-6 px-6 py-12\">\n"
+    "        <div class=\"flex flex-col gap-6 md:flex-row md:items-center "
+    "md:justify-between\">\n"
+    "          <a href=\"/\" class=\"text-3xl font-semibold "
+    "text-slate-100\">Filip Mihalic</a>\n"
+    "          <nav class=\"flex items-center gap-6 text-sm\">\n"
+    "            <a href=\"/\" class=\"text-slate-400 "
+    "hover:text-slate-200\">Blog</a>\n"
+    "            <a href=\"/about\" class=\"text-slate-100 "
+    "font-medium\">About</a>\n"
+    "          </nav>\n"
+    "        </div>\n"
+    "        <div class=\"flex flex-col gap-6 md:flex-row md:items-center "
+    "md:gap-10\">\n"
+    "          <img src=\"/images/filip.webp\" alt=\"Portrait of Filip "
+    "Mihalic\" class=\"h-28 w-28 rounded-full border border-slate-800 "
+    "object-cover shadow-lg\" loading=\"lazy\">\n"
+    "          <p class=\"max-w-2xl text-base text-slate-400\">Personal notes, "
+    "lessons, and observations.</p>\n"
+    "        </div>\n"
+    "      </div>\n"
+    "    </header>\n"
+    "    <main class=\"max-w-3xl mx-auto px-6 py-12\">\n"
+    "      <section class=\"flex flex-col gap-6\">\n"
+    "        <h1 class=\"text-4xl font-semibold text-slate-50\">Filip "
+    "Mihalic</h1>\n"
+    "        <div class=\"markdown text-lg leading-relaxed text-slate-200\">\n"
+    "          <p>Hey! I'm Filip (he/him). I'm a software developer based in "
+    "Belgrade, Serbia.</p>\n"
+    "          <p>For the last 10+ years, I've been working my way down the "
+    "software stack&mdash;starting with LAMP stacks and jQuery, moving through "
+    "the web with Node.js and TypeScript, and now betting on Rust and diving "
+    "deeper into systems.</p>\n"
+    "          <p>I've spent most of my career wrestling with software of all "
+    "kinds and sizes&mdash;monoliths, microservices, distributed monoliths, "
+    "\"microservice death stars,\" and strangler figs that strangled "
+    "themselves. I've also worked on legacy systems that were difficult to "
+    "maintain and update.</p>\n"
+    "          <p>After a decade with high-level languages, I've realized we "
+    "take many concepts for granted, and that software development is becoming "
+    "more and more complex, while at the same time the quality of shipped "
+    "software is declining.</p>\n"
+    "          <p>These days, I'm writing down my thoughts and "
+    "observations&mdash;documenting my journey as I learn new things and ship "
+    "software. From time to time, I'll share opinions on the topics I'm "
+    "currently working on.</p>\n"
+    "          <p>I hope you connect with me on <a "
+    "href=\"https://www.linkedin.com/in/filip-mihalic\" target=\"_blank\" "
+    "rel=\"noopener\">LinkedIn</a>, <a href=\"https://github.com/enoent0xFD\" "
+    "target=\"_blank\" rel=\"noopener\">GitHub</a>, or over <a "
+    "href=\"mailto:filipm@hey.com\">email</a>.</p>\n"
+    "          <hr class=\"my-10 border-slate-800/80\">\n"
+    "          <hr class=\"border-slate-800/80\">\n"
+    "        </div>\n"
+    "      </section>\n"
+    "    </main>\n"
+    "    <footer id=\"status-bar\" class=\"border-t border-slate-800/80 "
+    "bg-slate-950/80 px-6 py-4 text-sm text-slate-500 max-w-3xl mx-auto "
+    "w-full\">\n"
+    "      Status: Loading...\n"
+    "    </footer>\n"
+    "  </div>\n"
+    "  <script>\n"
+    "    function updateStats() {\n"
+    "      fetch('/api/stats')\n"
+    "        .then(response => response.json())\n"
+    "        .then(stats => {\n"
+    "          document.getElementById('status-bar').textContent = `Time: "
+    "${stats.uptime} | Memory: ${stats.memory} | ${stats.os}`;\n"
+    "        })\n"
+    "        .catch(() => {});\n"
+    "    }\n"
+    "    updateStats();\n"
+    "  </script>\n"
+    "</body>\n"
+    "</html>";
+
+static void handle_about_page(int client_fd);
+
 static volatile int keep_running = 1;
 
 void serve_static_file(int client_fd, const char *filepath) {
@@ -41,10 +151,10 @@ void serve_static_file(int client_fd, const char *filepath) {
   snprintf(headers, sizeof(headers),
            "HTTP/1.1 200 OK\r\n"
            "Content-Type: %s\r\n"
-           "Content-Length: %ld\r\n"
+           "Content-Length: %lld\r\n"
            "Connection: close\r\n"
            "\r\n",
-           get_content_type(filepath), file_stat.st_size);
+           get_content_type(filepath), (long long)file_stat.st_size);
 
   write(client_fd, headers, strlen(headers));
 
@@ -140,6 +250,8 @@ void handle_client(int client_fd, struct server_config *config) {
     handle_index_page(client_fd, config);
   } else if (strcmp(req.path, "/api/stats") == 0) { // Add this condition
     handle_stats_request(client_fd);
+  } else if (strcmp(req.path, "/about") == 0) {
+    handle_about_page(client_fd);
   } else if (strncmp(req.path, "/post/", 6) == 0) {
     char *clean_path = sanitize_path(req.path + 6);
     if (clean_path && is_path_safe(clean_path)) {
@@ -162,6 +274,23 @@ void handle_client(int client_fd, struct server_config *config) {
     }
   }
 }
+
+static void handle_about_page(int client_fd) {
+  size_t body_length = strlen(ABOUT_TEMPLATE);
+
+  char headers[256];
+  snprintf(headers, sizeof(headers),
+           "HTTP/1.1 200 OK\r\n"
+           "Content-Type: text/html\r\n"
+           "Content-Length: %zu\r\n"
+           "Connection: close\r\n"
+           "\r\n",
+           body_length);
+
+  write(client_fd, headers, strlen(headers));
+  write(client_fd, ABOUT_TEMPLATE, body_length);
+}
+
 // In start_server function in server.c
 int start_server(struct server_config *config) {
   int server_fd;

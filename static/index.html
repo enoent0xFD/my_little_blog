@@ -1,70 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abstraction Layer</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="stylesheet" href="/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filip Mihalic · Writing on systems and software</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    :root { color-scheme: dark; }
+  </style>
 </head>
-
-<body>
-    <header>
-        <h1 class="site-title">Abstraction Layer</h1>
-        <div class="intro">
-            <p>
-                I like to think I'm smart enough to understand the things I think about.
-            </p>
-            <p class="github-link">
-                <a href="https://github.com/yourusername" target="_blank">
-                    <svg height="20" width="20" viewBox="0 0 16 16" fill="var(--text-color)">
-                        <path
-                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-                    </svg>
-                    GitHub
-                </a>
-            </p>
+<body class="bg-slate-950 text-slate-200 font-sans">
+  <div class="min-h-screen">
+    <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur">
+      <div class="max-w-3xl mx-auto flex flex-col gap-6 px-6 py-12">
+        <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <a href="/" class="text-3xl font-semibold text-slate-100">Filip Mihalic</a>
+          <nav class="flex items-center gap-6 text-sm">
+            <a href="/" class="text-slate-100 font-medium">Blog</a>
+            <a href="/about" class="text-slate-400 hover:text-slate-200">About</a>
+          </nav>
         </div>
+        <div class="flex flex-col gap-6 md:flex-row md:items-center md:gap-10">
+          <img src="/images/filip.webp" alt="Portrait of Filip Mihalic" class="h-28 w-28 rounded-full border border-slate-800 object-cover shadow-lg" loading="lazy">
+          <p class="max-w-2xl text-base text-slate-400">Working down the stack&mdash;from web apps to networking internals&mdash;and sharing the lessons from building dependable software in Rust, C, and beyond.</p>
+        </div>
+      </div>
     </header>
 
-    <div class="content">
-        <h2 class="posts-heading">Posts</h2>
-        <div class="post-preview">
-            <span class="post-date">2024-12-25</span>
-            <h2><a href="/post/building-c-blog">Building a Blog Engine in C</a></h2>
-            <p>Exploring the fundamentals of web servers by implementing one from scratch using C.
-                In this post, we'll dive deep into socket programming, HTTP protocols, and file serving...</p>
-        </div>
+    <main class="max-w-3xl mx-auto px-6 py-12">
+      <section class="flex flex-col gap-4">
+        <h2 class="text-sm uppercase tracking-[0.3em] text-slate-500">Latest Writing</h2>
+        <div class="w-16 h-px bg-slate-700"></div>
+      </section>
+      <div class="mt-10 grid gap-8">
+        <article class="group rounded-2xl border border-slate-800/80 bg-slate-900/40 px-6 py-6 transition-colors hover:border-slate-700">
+          <div class="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-slate-500">
+            <span>2024-12-25</span>
+          </div>
+          <h3 class="mt-4 text-2xl font-semibold text-slate-100 group-hover:text-white">
+            <a href="/post/building-c-blog">Building a Blog Engine in C</a>
+          </h3>
+          <p class="mt-3 text-slate-400">A hands-on walkthrough of serving HTTP from scratch, exploring sockets, file IO, and the layers beneath your framework.</p>
+        </article>
+        <article class="group rounded-2xl border border-slate-800/80 bg-slate-900/40 px-6 py-6 transition-colors hover:border-slate-700">
+          <div class="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-slate-500">
+            <span>2024-12-23</span>
+          </div>
+          <h3 class="mt-4 text-2xl font-semibold text-slate-100 group-hover:text-white">
+            <a href="/post/linux-syscalls">Linux Syscalls: A Deep Dive</a>
+          </h3>
+          <p class="mt-3 text-slate-400">Understanding the contract between userspace and the kernel, and how syscalls shape the ergonomics of systems programming.</p>
+        </article>
+      </div>
+    </main>
 
-        <div class="post-preview">
-            <span class="post-date">2024-12-23</span>
-            <h2><a href="/post/linux-syscalls">Linux Syscalls: A Deep Dive</a></h2>
-            <p>Understanding the interface between user space and kernel space. We'll explore how system calls work,
-                their role in the OS, and how to use them effectively in your programs...</p>
-        </div>
-    </div>
+    <footer id="status-bar" class="border-t border-slate-800/80 bg-slate-950/80 px-6 py-4 text-sm text-slate-500 max-w-3xl mx-auto w-full">
+      Status: Loading...
+    </footer>
+  </div>
 
-    <div class="status-bar" id="status-bar">
-        Status: Loading...
-    </div>
-    <script>
-        function updateStats() {
-            fetch('/api/stats')
-                .then(response => response.json())
-                .then(stats => {
-                    document.getElementById('status-bar').textContent =
-                        `Time: ${stats.uptime} | Memory used: ${stats.memory} | ${stats.os}`;
-                })
-                .catch(error => console.error('Error fetching stats:', error));
-        }
+  <script>
+    function updateStats() {
+      fetch('/api/stats')
+        .then(response => response.json())
+        .then(stats => {
+          document.getElementById('status-bar').textContent =
+            `Time: ${stats.uptime} | Memory used: ${stats.memory} | ${stats.os}`;
+        })
+        .catch(() => {});
+    }
 
-        // Update immediately and then every second
-        updateStats();
-    </script>
+    updateStats();
+  </script>
 </body>
-
 </html>
