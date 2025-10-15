@@ -1,4 +1,5 @@
 app = "my-little-blog"
+primary_region = "fra"
 
 [build]
 dockerfile = "Dockerfile"
@@ -37,6 +38,6 @@ strategy = "immediate"
 release_command = ""
 auto_rollback = true
 
-# Force specific regions
+# Force specific regions (2x EU, 2x NA)
 [regions]
-only = ["ams"]
+only = ["fra", "ams", "iad", "dfw"]
