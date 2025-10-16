@@ -1,5 +1,7 @@
 # C Blog Engine
 
+[![Deploy](https://github.com/enoent0xFD/my_little_blog/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/enoent0xFD/my_little_blog/actions/workflows/deploy.yml)
+
 A minimalist blog engine written in pure C, serving static files and markdown posts. Build from scratch with no frameworks - just core C and system calls.
 
 ## Features
@@ -66,14 +68,7 @@ Content starts here...
 ```
 
 ## Deployment
-Configured for deployment on fly.io:
-```bash
-# Manual deployment
-fly deploy
-
-# Or use GitHub Actions
-# Push to main branch
-```
+See DEPLOY_HETZNER.md for a step-by-step guide to deploy on a Hetzner Cloud VM with HTTPS via Caddy. Docker and native systemd options are included.
 
 ## License
 MIT

@@ -22,6 +22,7 @@ WORKDIR /app
 COPY --from=builder /app/build/blog_server .
 COPY static/ static/
 COPY content/ content/
+COPY templates/ templates/
 COPY config.json .
 
 EXPOSE 8080
