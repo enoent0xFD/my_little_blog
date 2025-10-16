@@ -6,11 +6,12 @@
 #include "../include/post.h"
 #include "../include/security.h"
 #include "../include/stats.h"
+#include "../include/template.h"
 #include <arpa/inet.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <limits.h>
 #include <netinet/in.h>
-#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,117 +19,43 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-static const char *ABOUT_TEMPLATE =
-    "<!DOCTYPE html>\n"
-    "<html lang=\"en\">\n"
-    "<head>\n"
-    "  <meta charset=\"UTF-8\">\n"
-    "  <meta name=\"viewport\" content=\"width=device-width, "
-    "initial-scale=1.0\">\n"
-    "  <title>About · Filip Mihalic</title>\n"
-    "  <meta name=\"description\" content=\"About Filip Mihalic, a "
-    "systems-focused software developer based in Belgrade, Serbia.\">\n"
-    "  <link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\">\n"
-    "  <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" "
-    "href=\"/favicon-32x32.png\">\n"
-    "  <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" "
-    "href=\"/favicon-16x16.png\">\n"
-    "  <link rel=\"apple-touch-icon\" sizes=\"180x180\" "
-    "href=\"/apple-touch-icon.png\">\n"
-    "  <script "
-    "src=\"https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4\"></script>\n"
-    "  <style>\n"
-    "    :root { color-scheme: dark; }\n"
-    "    .markdown :is(p, ul, ol, blockquote, pre) { margin-top: 1.5rem; "
-    "margin-bottom: 1.5rem; }\n"
-    "    .markdown a { color: #60a5fa; text-decoration: none; }\n"
-    "    .markdown a:hover { text-decoration: underline; }\n"
-    "  </style>\n"
-    "</head>\n"
-    "<body class=\"bg-slate-950 text-slate-200 font-sans\">\n"
-    "  <div class=\"min-h-screen\">\n"
-    "    <header class=\"border-b border-slate-800/80 bg-slate-950/80 "
-    "backdrop-blur\">\n"
-    "      <div class=\"max-w-3xl mx-auto flex flex-col gap-6 px-6 py-12\">\n"
-    "        <div class=\"flex flex-col gap-6 md:flex-row md:items-center "
-    "md:justify-between\">\n"
-    "          <a href=\"/\" class=\"text-3xl font-semibold "
-    "text-slate-100\">Filip Mihalic</a>\n"
-    "          <nav class=\"flex items-center gap-6 text-sm\">\n"
-    "            <a href=\"/\" class=\"text-slate-400 "
-    "hover:text-slate-200\">Blog</a>\n"
-    "            <a href=\"/about\" class=\"text-slate-100 "
-    "font-medium\">About</a>\n"
-    "          </nav>\n"
-    "        </div>\n"
-    "        <div class=\"flex flex-col gap-6 md:flex-row md:items-center "
-    "md:gap-10\">\n"
-    "          <img src=\"/images/filip.webp\" alt=\"Portrait of Filip "
-    "Mihalic\" class=\"h-28 w-28 rounded-full border border-slate-800 "
-    "object-cover shadow-lg\" loading=\"lazy\">\n"
-    "          <p class=\"max-w-2xl text-base text-slate-400\">Personal notes, "
-    "lessons, and observations.</p>\n"
-    "        </div>\n"
-    "      </div>\n"
-    "    </header>\n"
-    "    <main class=\"max-w-3xl mx-auto px-6 py-12\">\n"
-    "      <section class=\"flex flex-col gap-6\">\n"
-    "        <h1 class=\"text-4xl font-semibold text-slate-50\">Filip "
-    "Mihalic</h1>\n"
-    "        <div class=\"markdown text-lg leading-relaxed text-slate-200\">\n"
-    "          <p>Hey! I'm Filip (he/him). I'm a software developer based in "
-    "Belgrade, Serbia.</p>\n"
-    "          <p>For the last 10+ years, I've been working my way down the "
-    "software stack&mdash;starting with LAMP stacks and jQuery, moving through "
-    "the web with Node.js and TypeScript, and now betting on Rust and diving "
-    "deeper into systems.</p>\n"
-    "          <p>I've spent most of my career wrestling with software of all "
-    "kinds and sizes&mdash;monoliths, microservices, distributed monoliths, "
-    "\"microservice death stars,\" and strangler figs that strangled "
-    "themselves. I've also worked on legacy systems that were difficult to "
-    "maintain and update.</p>\n"
-    "          <p>After a decade with high-level languages, I've realized we "
-    "take many concepts for granted, and that software development is becoming "
-    "more and more complex, while at the same time the quality of shipped "
-    "software is declining.</p>\n"
-    "          <p>These days, I'm writing down my thoughts and "
-    "observations&mdash;documenting my journey as I learn new things and ship "
-    "software. From time to time, I'll share opinions on the topics I'm "
-    "currently working on.</p>\n"
-    "          <p>I hope you connect with me on <a "
-    "href=\"https://www.linkedin.com/in/filip-mihalic\" target=\"_blank\" "
-    "rel=\"noopener\">LinkedIn</a>, <a href=\"https://github.com/enoent0xFD\" "
-    "target=\"_blank\" rel=\"noopener\">GitHub</a>, or over <a "
-    "href=\"mailto:filipm@hey.com\">email</a>.</p>\n"
-    "          <hr class=\"my-10 border-slate-800/80\">\n"
-    "          <hr class=\"border-slate-800/80\">\n"
-    "        </div>\n"
-    "      </section>\n"
-    "    </main>\n"
-    "    <footer id=\"status-bar\" class=\"border-t border-slate-800/80 "
-    "bg-slate-950/80 px-6 py-4 text-sm text-slate-500 max-w-3xl mx-auto "
-    "w-full\">\n"
-    "      Status: Loading...\n"
-    "    </footer>\n"
-    "  </div>\n"
-    "  <script>\n"
-    "    function updateStats() {\n"
-    "      fetch('/api/stats')\n"
-    "        .then(response => response.json())\n"
-    "        .then(stats => {\n"
-    "          document.getElementById('status-bar').textContent = `Time: "
-    "${stats.uptime} | Memory: ${stats.memory} | ${stats.os}`;\n"
-    "        })\n"
-    "        .catch(() => {});\n"
-    "    }\n"
-    "    updateStats();\n"
-    "  </script>\n"
-    "</body>\n"
-    "</html>";
+// about page now uses templates/about.html exclusively
 
-static void handle_about_page(int client_fd);
+static void handle_about_page(int client_fd, struct server_config *config);
 
 static volatile int keep_running = 1;
+
+static int parse_page_param(const char *query) {
+  if (!query || *query == '\0') {
+    return 1;
+  }
+
+  char buffer[256];
+  strncpy(buffer, query, sizeof(buffer) - 1);
+  buffer[sizeof(buffer) - 1] = '\0';
+
+  char *saveptr;
+  char *token = strtok_r(buffer, "&", &saveptr);
+  while (token) {
+    if (strncmp(token, "page=", 5) == 0) {
+      const char *value = token + 5;
+      if (*value == '\0') {
+        break;
+      }
+
+      char *endptr;
+      long parsed = strtol(value, &endptr, 10);
+      if (endptr != value && *endptr == '\0' && parsed > 0 &&
+          parsed <= INT_MAX) {
+        return (int)parsed;
+      }
+      break;
+    }
+    token = strtok_r(NULL, "&", &saveptr);
+  }
+
+  return 1;
+}
 
 void serve_static_file(int client_fd, const char *filepath) {
   int fd = open(filepath, O_RDONLY);
@@ -243,17 +170,44 @@ void handle_client(int client_fd, struct server_config *config) {
   logger_log(LOG_INFO, "Received request: %s %s %s", req.method, req.path,
              req.version);
 
+  char path_only[sizeof(req.path)];
+  char query[sizeof(req.path)];
+  query[0] = '\0';
+
+  const char *query_start = strchr(req.path, '?');
+  if (query_start) {
+    size_t base_len = (size_t)(query_start - req.path);
+    if (base_len >= sizeof(path_only)) {
+      base_len = sizeof(path_only) - 1;
+    }
+    memcpy(path_only, req.path, base_len);
+    path_only[base_len] = '\0';
+
+    size_t query_len = strlen(query_start + 1);
+    if (query_len >= sizeof(query)) {
+      query_len = sizeof(query) - 1;
+    }
+    memcpy(query, query_start + 1, query_len);
+    query[query_len] = '\0';
+  } else {
+    strncpy(path_only, req.path, sizeof(path_only) - 1);
+    path_only[sizeof(path_only) - 1] = '\0';
+  }
+
   // Route handling
-  if (strcmp(req.path, "/health") == 0) {
+  if (strcmp(path_only, "/health") == 0) {
     handle_health_check(client_fd);
-  } else if (strcmp(req.path, "/") == 0) {
+  } else if (strcmp(path_only, "/") == 0) {
     handle_index_page(client_fd, config);
-  } else if (strcmp(req.path, "/api/stats") == 0) { // Add this condition
+  } else if (strcmp(path_only, "/blog") == 0) {
+    int page = parse_page_param(query);
+    handle_blog_page(client_fd, config, page);
+  } else if (strcmp(path_only, "/api/stats") == 0) { // Add this condition
     handle_stats_request(client_fd);
-  } else if (strcmp(req.path, "/about") == 0) {
-    handle_about_page(client_fd);
-  } else if (strncmp(req.path, "/post/", 6) == 0) {
-    char *clean_path = sanitize_path(req.path + 6);
+  } else if (strcmp(path_only, "/about") == 0) {
+    handle_about_page(client_fd, config);
+  } else if (strncmp(path_only, "/post/", 6) == 0) {
+    char *clean_path = sanitize_path(path_only + 6);
     if (clean_path && is_path_safe(clean_path)) {
       handle_markdown_post(client_fd, clean_path, config);
       free(clean_path);
@@ -262,7 +216,7 @@ void handle_client(int client_fd, struct server_config *config) {
     }
   } else {
     // Handle static files
-    char *clean_path = sanitize_path(req.path);
+    char *clean_path = sanitize_path(path_only);
     if (clean_path && is_path_safe(clean_path)) {
       char filepath[512];
       snprintf(filepath, sizeof(filepath), "%s%s", config->static_dir,
@@ -275,9 +229,16 @@ void handle_client(int client_fd, struct server_config *config) {
   }
 }
 
-static void handle_about_page(int client_fd) {
-  size_t body_length = strlen(ABOUT_TEMPLATE);
+static void handle_about_page(int client_fd, struct server_config *config) {
+  char *rendered = NULL;
+  char path[512];
+  snprintf(path, sizeof(path), "%s/about.html", config->templates_dir);
+  if (render_template_file(path, NULL, 0, &rendered) != 0 || !rendered) {
+    send_error_page(client_fd, 500, "Failed to render about page");
+    return;
+  }
 
+  size_t body_length = strlen(rendered);
   char headers[256];
   snprintf(headers, sizeof(headers),
            "HTTP/1.1 200 OK\r\n"
@@ -288,7 +249,8 @@ static void handle_about_page(int client_fd) {
            body_length);
 
   write(client_fd, headers, strlen(headers));
-  write(client_fd, ABOUT_TEMPLATE, body_length);
+  write(client_fd, rendered, body_length);
+  free_rendered_template(rendered);
 }
 
 // In start_server function in server.c

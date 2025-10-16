@@ -27,5 +27,6 @@ void handle_markdown_post(int client_fd, const char* path, struct server_config*
 struct blog_index* build_post_index(const char* content_dir);
 void free_post_index(struct blog_index* index);
 void handle_index_page(int client_fd, struct server_config* config);
+void handle_blog_page(int client_fd, struct server_config* config, int page);
 
 #endif

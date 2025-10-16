@@ -47,7 +47,8 @@ make
     "server": {
         "port": 8080,
         "static_dir": "./static",
-        "blog_dir": "./content"
+        "blog_dir": "./content",
+        "templates_dir": "./templates"
     }
 }
 ```

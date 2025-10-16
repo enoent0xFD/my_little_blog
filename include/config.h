@@ -6,6 +6,7 @@ struct server_config {
     char host[256];
     char static_dir[256];
     char blog_dir[256];
+    char templates_dir[256];
     char blog_title[256];
     char blog_description[512];
     char blog_author[256];

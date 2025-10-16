@@ -9,6 +9,7 @@ struct server_config load_config(const char *filename) {
   strcpy(config.host, "127.0.0.1");
   strcpy(config.static_dir, "./static");
   strcpy(config.blog_dir, "./content");
+  strcpy(config.templates_dir, "./templates");
 
   FILE *fp = fopen(filename, "r");
   if (!fp) {
@@ -53,6 +54,11 @@ struct server_config load_config(const char *filename) {
     if (blog_dir && blog_dir->valuestring)
       strncpy(config.blog_dir, blog_dir->valuestring,
               sizeof(config.blog_dir) - 1);
+
+    cJSON *templates_dir = cJSON_GetObjectItem(server, "templates_dir");
+    if (templates_dir && templates_dir->valuestring)
+      strncpy(config.templates_dir, templates_dir->valuestring,
+              sizeof(config.templates_dir) - 1);
   }
 
   // Parse blog settings

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}} · Filip Mihalic</title>
+  <meta name="description" content="Writing about systems programming, resilient software, and learning in public.">
+  <meta name="keywords" content="Filip Mihalic, systems programming, Rust, C, software engineering">
+  <meta property="og:title" content="Filip Mihalic">
+  <meta property="og:description" content="Writing about systems programming, resilient software, and learning in public.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://filipmihalic.com">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Filip Mihalic">
+  <meta name="twitter:description" content="Writing about systems programming, resilient software, and learning in public.">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/tokyo-night-dark.min.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
+  <style>
+    :root { color-scheme: dark; }
+    .markdown :is(p, ul, ol, blockquote, pre) { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+    .markdown h2 { margin-top: 3rem; font-size: 1.5rem; font-weight: 600; color: #e2e8f0; }
+    .markdown h3 { margin-top: 2.5rem; font-size: 1.25rem; font-weight: 600; color: #cbd5f5; }
+    .markdown a { color: #60a5fa; text-decoration: none; }
+    .markdown a:hover { text-decoration: underline; }
+    .markdown code { background-color: rgba(148, 163, 184, 0.15); padding: 0.2rem 0.4rem; border-radius: 0.375rem; font-size: 0.875rem; }
+    .markdown pre { background-color: rgba(15, 23, 42, 0.8); padding: 1.5rem; border-radius: 0.75rem; overflow-x: auto; }
+    .markdown pre code { background: transparent; padding: 0; }
+  </style>
+  </head>
+<body class="bg-slate-950 text-slate-200 font-sans">
+  <div class="min-h-screen">
+    <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur">
+      <div class="max-w-3xl mx-auto flex flex-col gap-6 px-6 py-10">
+        <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <a href="/" class="text-2xl font-semibold text-slate-100">Filip Mihalic</a>
+          <nav class="flex items-center gap-6 text-sm">
+            <a href="/blog" class="text-slate-100 font-medium">Blog</a>
+            <a href="/about" class="text-slate-400 hover:text-slate-200">About</a>
+          </nav>
+        </div>
+        <p class="text-sm text-slate-400">Systems, software, and the craft of building things that last.</p>
+      </div>
+    </header>
+    <main class="max-w-3xl mx-auto px-6 py-12">
+      <article class="flex flex-col gap-6">
+        <div class="flex items-center gap-3 text-sm text-slate-400">
+          <span class="inline-flex items-center gap-2">
+            <span class="h-px w-10 bg-slate-700"></span>
+            <span class="tracking-wide uppercase">{{DATE}}</span>
+          </span>
+        </div>
+        <h1 class="text-4xl font-semibold text-slate-50">{{POST_TITLE}}</h1>
+        <div class="markdown leading-relaxed text-slate-200">
+          {{{CONTENT}}}
+        </div>
+      </article>
+    </main>
+    <footer id="status-bar" class="border-t border-slate-800/80 bg-slate-950/80 px-6 py-4 text-sm text-slate-500 max-w-3xl mx-auto w-full">
+      Status: Loading...
+    </footer>
+  </div>
+  <script>
+    function updateStats() {
+      fetch('/api/stats')
+        .then(response => response.json())
+        .then(stats => {
+          document.getElementById('status-bar').textContent = `Time: ${stats.uptime} | Memory: ${stats.memory} | ${stats.os}`;
+        })
+        .catch(() => {});
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.hljs && window.hljs.highlightAll) {
+        window.hljs.highlightAll();
+      }
+    });
+    updateStats();
+  </script>
+</body>
+</html>
+
